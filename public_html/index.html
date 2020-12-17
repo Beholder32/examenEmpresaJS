@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/programa.js"></script>
+    </head>
+    <body>
+        <p id="texto1">Dado este texto, pásalo todo a mayúsculas</p><button onclick="convertir1()">Convertir</button>
+
+        <p id="texto2">Dado este texto, pon en mayúscula la primera letra de cada palabra</p><button onclick="convertir2()">Convertir</button>
+
+        <!-- Dado el texto del usuario -->
+        <br/>
+        <form>
+            <label for="casillero">Ingresar un mensaje</label>
+            <input id="casillero" type="text" name="casillero"/>
+            <button type="button" onclick="cogerPalabra()">Guardar</button>
+        </form>
+        <ul >
+            <li>Tus mensajes son: </li>
+            <ul id="imprimirLista">
+                
+            </ul>
+        </ul>
+
+        <!-- Dado el texto del usuario -->
+        <button type="button" onclick="listadoMayus()">Convertir la primera letra de cada palabra a mayúscula</button>
+        <!-- Realice el botón anterior de 2 maneras, con y sin hacer modificaciones al texto
+        ingresado por el usuario al insertarlo -->
+        <ul id="imprimirLista2">
+            
+        </ul>
+
+        <script>
+            //------- Ejercicio 1 -------
+            const convertir1=()=>{
+                var parrafo1 = document.getElementById("texto1").innerHTML;
+                var parrafoMayus = parrafo1.toUpperCase();
+
+                var nodo = document.createElement("p");
+                nodo.innerHTML = parrafoMayus;
+
+                var objetivo = document.getElementsByTagName("p")[0];
+                console.log(objetivo);
+                objetivo.parentNode.replaceChild(nodo, objetivo);
+            }
+            //------- Ejercicio 2 -------
+            const convertir2=()=>{
+                var parrafo2 = document.getElementById("texto2").innerHTML;
+
+                var busqueda = parrafo2.split(" ");
+                console.log(busqueda);
+                var textoMayus = [];
+
+                for (let i = 0; i < busqueda.length; i++) {
+                    let letra = busqueda[i].charAt(0);
+                    let mayuscula = letra.toUpperCase();
+                    let palabra = mayuscula + busqueda[i].substr(1);
+                    textoMayus.push(palabra);
+                }
+                console.log(textoMayus);
+
+                var nuevaFrase = textoMayus.join(" ").trim();
+                console.log(nuevaFrase);
+
+                var nodo2 = document.createElement("p");
+                nodo2.innerHTML = nuevaFrase;
+
+                var objetivo2 = document.getElementsByTagName("p")[1];
+                objetivo2.parentNode.replaceChild(nodo2, objetivo2);
+
+            }
+            //------- Ejercicio 3 -------
+            //Tipos input formularios
+            //text/password/number/email/color/range/date/time/button/submit
+            
+            var listado = [];
+            var listadoConvertido = [];
+            
+            const cogerPalabra=()=>{
+                let palabra=document.getElementById('casillero').value;
+                listado.push(palabra);
+                console.log(listado);
+                document.getElementById('casillero').value="";
+                
+                limpiar();
+                
+                for(let i=0;i<listado.length;i++){
+                    let elemento = document.createElement("li");
+                    let contenido=document.createTextNode(listado[i]);
+                    elemento.appendChild(contenido);
+                    console.log(elemento);
+                    document.getElementById('imprimirLista').appendChild(elemento);
+                }
+                
+            }
+            
+            function limpiar() {
+                var resultado = document.getElementById("imprimirLista");
+                resultado.innerHTML = "";
+            }
+            
+            //------- Ejercicio 4 -------
+            
+            const listadoMayus=()=>{
+                for (let i = 0; i < listado.length; i++) {
+                    let letra = listado[i].charAt(0);
+                    let mayuscula = letra.toUpperCase();
+                    let palabra = mayuscula + listado[i].substr(1);
+                    listadoConvertido.push(palabra);
+                }
+                console.log(listadoConvertido);
+                
+                for(let i=0;i<listadoConvertido.length;i++){
+                    let elemento = document.createElement("li");
+                    let contenido=document.createTextNode(listadoConvertido[i]);
+                    elemento.appendChild(contenido);
+                    console.log(elemento);
+                    document.getElementById('imprimirLista2').appendChild(elemento);
+                }
+            }
+            
+        </script>
+
+    </body>
+</html>
